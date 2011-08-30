@@ -1,0 +1,9 @@
+= redmine ical import plugin
+
+icalをインポートしてRedmineのチケットとして作成します。
+
+== install
+
+rake db:migrate_plugins RAILS_ENV=production
+(テーブルを追加するだけなので危険は少ないです)
+
