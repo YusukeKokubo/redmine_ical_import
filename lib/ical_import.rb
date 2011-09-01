@@ -84,6 +84,7 @@ EOS
             rel = UidRelation.new
             rel.uid = event.uid
             rel.issue = issue
+            rel.ical_setting = setting
             rel.save!
           end
         end

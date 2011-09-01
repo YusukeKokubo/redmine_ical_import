@@ -1,6 +1,8 @@
 class IcalSetting < ActiveRecord::Base
     unloadable
 
+    has_many :uid_relations, :dependent => :destroy
+
     STATUS_ACTIVE = 1
     STATUS_LOCK = 9
 
