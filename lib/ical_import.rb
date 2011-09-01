@@ -1,10 +1,8 @@
 
 #ENV['RAILS_ENV'] ||= 'production'
 
-require "rubygems"
 require 'icalendar'
 
-require File.join(File.dirname(__FILE__), "../../../../config/environment")
 require 'date'
 require 'kconv'
 require 'net/https'
@@ -21,7 +19,7 @@ class IcalImporter
       logger.level = Logger::DEBUG
 
       cals = nil
-      IcalSetting.find(cond).each do |setting|
+      IcalSetting.find_all_by_id(cond).each do |setting|
 
         next if setting.project.archived?
         next if setting.lock?
@@ -95,6 +93,8 @@ EOS
 end
 
 if __FILE__ == $0
+  require "rubygems"
+  require File.join(File.dirname(__FILE__), "../../../../config/environment")
   #IcalImporter.import([1])
   IcalImporter.import
 end

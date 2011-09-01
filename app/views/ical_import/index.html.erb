@@ -1,6 +1,8 @@
 <% @ical_settings.each do |setting| %>
   <h3><%= setting.name %> : <%= link_to_user(setting.user) %></h3>
-　
+  <div class="contextual">
+    <%= link_to l(:button_update), {:controller => "ical_import", :action => "update", :id => setting}, :class => 'icon icon-edit' %>
+  </div>
   <table class="list issues">
     <tbody>
       <tr>

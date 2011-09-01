@@ -5,10 +5,17 @@ require 'icalendar'
 class IcalImportController < ApplicationController
   unloadable
 
-  before_filter :find_project
-  before_filter :find_ical_setting
+  before_filter :find_project, :only => :index
+  before_filter :find_ical_setting, :only => :index
 
   def index
+  end
+
+  def update
+    @ical_setting = IcalSetting.find(params[:id])
+    IcalImporter.import @ical_setting.id
+
+    redirect_to :controller => 'ical_import', :action => "index", :id => @ical_setting.project
   end
 
   def find_project
