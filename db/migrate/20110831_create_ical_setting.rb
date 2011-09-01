@@ -5,6 +5,8 @@ class CreateIcalSetting < ActiveRecord::Migration
       t.column :tracker_id, :integer, :null => false
       t.column :user_id, :integer, :null => false
       t.column :url, :string, :null => false
+      t.column :name, :string, :null => true
+      t.column :status, :integer, :null => false
       t.timestamps
     end
   end

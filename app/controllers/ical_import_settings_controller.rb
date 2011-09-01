@@ -1,6 +1,8 @@
-# $Id: hudson_settings_controller.rb 559 2010-10-03 08:35:08Z toshiyuki.ando1971 $
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+require 'net/https'
+require 'uri'
+require 'icalendar'
+
+include Icalendar
 
 class IcalImportSettingsController < ApplicationController
   unloadable
@@ -18,6 +20,18 @@ class IcalImportSettingsController < ApplicationController
     @ical_setting = IcalSetting.new
     @ical_setting.attributes = params[:ical_setting]
     @ical_setting.project = @project
+    @ical_setting.status = IcalSetting::STATUS_ACTIVE
+
+    url = URI.parse(@ical_setting.url)
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.start {
+      response = http.get(url.request_uri)
+      cals = Icalendar::parse(response.body)
+      cal = cals[0]
+      @ical_setting.name = cal.x_wr_calname
+    }
+
     @ical_setting.save!
 
     redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical'

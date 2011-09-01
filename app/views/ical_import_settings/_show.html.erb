@@ -21,9 +21,11 @@
 <table class="list">
   <thead>
     <tr>
-      <th><%= l(:field_url) %></th>
-      <th><%= l(:field_user) %></th>
       <th><%= l(:field_tracker) %></th>
+      <th><%= l(:field_user) %></th>
+      <th><%= l(:field_name) %></th>
+      <th><%= l(:field_url) %></th>
+      <th><%= l(:field_status) %></th>
     </tr>
   </thead>
   <tbody>
@@ -34,9 +36,11 @@
   logger.info @ical_settings.inspect
   @ical_settings.each do |setting| %>
     <tr>
-      <td><%= setting.url %></td>
-      <td><%= link_to_user(setting.user) %></td>
       <td><%= setting.tracker %></td>
+      <td><%= link_to_user(setting.user) %></td>
+      <td><%= setting.name %></td>
+      <td><%= setting.url %></td>
+      <td><%= setting.status_to_s %></td>
     </tr>
 <% end if @ical_settings %>
   </tbody>
