@@ -1,0 +1,44 @@
+<h2><%=l(:label_ical)%></h2>
+
+<%= error_messages_for 'ical_settings' %>
+
+<% form_for :ical_setting, @ical_setting, :url => {:controller => 'ical_import_settings', :action => 'new', :id => @project}, :html => {:method=>:put} do |f| %>
+<div class="box tabular">
+  <p><label><%=l(:label_url)%></label>
+     <%= f.text_field :url, :size => 150 %>
+  </p>
+  <p><label><%=l(:field_user)%></label>
+     <%= f.select :user_id, @project.members.collect {|m| [m.name, m.user.id]}, :required => true %>
+  </p>
+  <p><label><%=l(:field_tracker)%></label>
+     <%= f.select :tracker_id, @project.trackers.collect {|t| [t.name, t.id]}, :required => true %>
+  </p>
+</div>
+
+<p><%= submit_tag l(:button_save) %></p>
+<% end %>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th><%= l(:field_url) %></th>
+      <th><%= l(:field_user) %></th>
+      <th><%= l(:field_tracker) %></th>
+    </tr>
+  </thead>
+  <tbody>
+<% 
+  @project = Project.find(params[:id])
+  logger.info @project.inspect
+  @ical_settings = IcalSetting.find(:all, :conditions => ['project_id=?', @project.id])
+  logger.info @ical_settings.inspect
+  @ical_settings.each do |setting| %>
+    <tr>
+      <td><%= setting.url %></td>
+      <td><%= link_to_user(setting.user) %></td>
+      <td><%= setting.tracker %></td>
+    </tr>
+<% end if @ical_settings %>
+  </tbody>
+</table>
+
