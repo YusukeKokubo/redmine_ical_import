@@ -20,7 +20,7 @@ class IcalImportSettingsController < ApplicationController
     @ical_setting.status = IcalSetting::STATUS_LOCK
     @ical_setting.save!
 
-    redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical'
+    redirect_to :controller => 'projects', :action => "settings", :id => @ical_setting.project, :tab => 'ical_import'
   end
 
   def active
@@ -28,7 +28,7 @@ class IcalImportSettingsController < ApplicationController
     @ical_setting.status = IcalSetting::STATUS_ACTIVE
     @ical_setting.save!
 
-    redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical'
+    redirect_to :controller => 'projects', :action => "settings", :id => @ical_setting.project, :tab => 'ical_import'
   end
 
   def new
@@ -50,7 +50,7 @@ class IcalImportSettingsController < ApplicationController
 
     @ical_setting.save!
 
-    redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical'
+    redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical_import'
   end
 end
 
