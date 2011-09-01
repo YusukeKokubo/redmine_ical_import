@@ -1,5 +1,26 @@
 <% @ical_settings.each do |setting| %>
-  <h3><%= setting.name %></h3>
-
+  <h3><%= setting.name %> : <%= link_to_user(setting.user) %></h3>
+　
+  <table class="list issues">
+    <tbody>
+      <tr>
+        <th><%= l(:field_issue) %></th>
+        <th><%= l(:field_start_date) %></th>
+        <th><%= l(:field_due_date) %></th>
+        <th><%= l(:field_created_on) %></th>
+        <th><%= l(:field_updated_on) %></th>
+      </tr>
+      <% setting.uid_relations.sort_by{|rel| rel.issue.start_date}.each do |rel| %>
+        <% issue = rel.issue %>
+        <tr>
+          <td><%= link_to_issue(issue) %></td>
+          <td><%= issue.start_date %></td>
+          <td><%= issue.due_date %></td>
+          <td><%= distance_of_time_in_words(Time.now, issue.created_on) %>前</td>
+          <td><%= distance_of_time_in_words(Time.now, issue.updated_on) %>前</td>
+        </tr>
+      <% end %>
+      </tbody>
+  </table>
 <% end  %>
 
