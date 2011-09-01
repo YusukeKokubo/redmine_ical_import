@@ -27,22 +27,34 @@ class IcalImporter
       cal = cals[0]
       cal.events.each do |event|
         start_date = event.dtstart
-        start_date = start_date.new_offset(Rational(9, 24))
+        start_date = start_date.new_offset(Rational(9, 24)) if start_date.respond_to? :new_offset and start_date.ical_params["TZID"].nil?
         end_date = event.dtend
-        end_date = end_date.new_offset(Rational(9, 24))
+        end_date = end_date.new_offset(Rational(9, 24)) if end_date.respond_to? :new_offset and end_date.ical_params["TZID"].nil?
         last_modified = event.last_modified
-        last_modified = last_modified.new_offset(Rational(9, 24))
+        last_modified = last_modified.new_offset(Rational(9, 24)) if last_modified and last_modified.ical_params["TZID"].nil?
 
         rel = UidRelation.find_by_uid event.uid
         issue = rel.issue if rel
         issue = Issue.new unless issue
 
-        next if issue and rel and rel.updated_at >= last_modified
+        next if last_modified.nil? and not issue.new_record?
+        next if rel and rel.updated_at >= last_modified
 
-        issue.init_journal(User.find(3))
+        puts event.summary
+
+        issue.init_journal(User.find(3)) unless issue.new_record?
         issue.tracker_id = 39
         issue.subject = event.summary
-        issue.description = event.description
+        issue.description = <<EOS
+* start:
+** #{start_date.strftime("%Y-%m-%d %H:%M:%S")}
+* end:
+** #{end_date.strftime("%Y-%m-%d %H:%M:%S")}
+* location:
+** #{event.location}
+
+#{event.description}
+EOS
         issue.project_id = 228
         issue.author_id = 3
         issue.start_date = start_date
