@@ -50,7 +50,10 @@ class IcalImporter
 
           next if last_modified.nil? and not issue.new_record?
           next if rel and last_modified and rel.updated_at >= last_modified
-          next if start_date < DateTime.now and last_modified and last_modified < DateTime.now
+          if start_date < DateTime.now
+            next unless last_modified
+            next if last_modified < DateTime.now
+          end
 
           logger.info "create event #{event.inspect}"
 
