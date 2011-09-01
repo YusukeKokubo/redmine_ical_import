@@ -16,12 +16,12 @@ include Icalendar
 class IcalImporter
 
   class << self
-    def import
+    def import(cond = :all)
       logger = Logger.new(File.join(File.dirname(__FILE__), "../../../../log/ics_import.log"))
       logger.level = Logger::DEBUG
 
       cals = nil
-      IcalSetting.find(:all).each do |setting|
+      IcalSetting.find(cond).each do |setting|
 
         next if setting.project.archived?
         next if setting.lock?
@@ -94,6 +94,7 @@ EOS
 end
 
 if __FILE__ == $0
+  #IcalImporter.import([1])
   IcalImporter.import
 end
 
