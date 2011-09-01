@@ -24,6 +24,7 @@ class IcalImporter
       IcalSetting.find(:all).each do |setting|
 
         next if setting.project.archived?
+        next if setting.lock?
         logger.info "ics import from #{setting.inspect}"
 
         uri = URI.parse(setting.url)

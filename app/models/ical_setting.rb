@@ -18,5 +18,13 @@ class IcalSetting < ActiveRecord::Base
         "unkwnon"
       end
     end
+
+    def active?
+      self.status == STATUS_ACTIVE
+    end
+
+    def lock?
+      self.status == STATUS_LOCK
+    end
 end
 

@@ -26,6 +26,7 @@
       <th><%= l(:field_name) %></th>
       <th><%= l(:field_url) %></th>
       <th><%= l(:field_status) %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -41,6 +42,11 @@
       <td><%= setting.name %></td>
       <td><%= setting.url %></td>
       <td><%= setting.status_to_s %></td>
+      <% if setting.active? %>
+        <td><%= link_to "lock", :controller => 'ical_import_settings', :action => 'lock', :id => setting %></td>
+      <% else %>
+        <td><%= link_to "active", :controller => 'ical_import_settings', :action => 'active', :id => setting %></td>
+      <% end %>
     </tr>
 <% end if @ical_settings %>
   </tbody>

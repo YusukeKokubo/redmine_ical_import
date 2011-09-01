@@ -15,6 +15,22 @@ class IcalImportSettingsController < ApplicationController
     @ical_setting = IcalSetting.new
   end
 
+  def lock
+    @ical_setting = IcalSetting.find(params[:id])
+    @ical_setting.status = IcalSetting::STATUS_LOCK
+    @ical_setting.save!
+
+    redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical'
+  end
+
+  def active
+    @ical_setting = IcalSetting.find(params[:id])
+    @ical_setting.status = IcalSetting::STATUS_ACTIVE
+    @ical_setting.save!
+
+    redirect_to :controller => 'projects', :action => "settings", :id => @project, :tab => 'ical'
+  end
+
   def new
     @project = Project.find(params[:id])
     @ical_setting = IcalSetting.new
