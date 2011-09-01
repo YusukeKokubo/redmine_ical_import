@@ -69,6 +69,7 @@ class IcalImporter
 EOS
           issue.project = setting.project
           issue.author = setting.user
+          issue.assigned_to = setting.user
           issue.start_date = start_date
           issue.due_date = end_date
           issue.save!
