@@ -12,7 +12,9 @@ Redmine::Plugin.register :ical_import do
 
   project_module :ical_import do
     permission :ical_import_setting, {:ical_import_settings => [:show, :new]}
+    permission :ical_import, {:ical_import => :index}
   end
 
+  menu :project_menu, :ical_import, {:controller => 'ical_import', :action => 'index'}, :caption => :ical_import
 end
 
