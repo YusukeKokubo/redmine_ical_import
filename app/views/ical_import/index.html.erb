@@ -10,16 +10,18 @@
         <th><%= l(:field_issue) %></th>
         <th><%= l(:field_start_date) %></th>
         <th><%= l(:field_due_date) %></th>
+        <th><%= l(:field_location) %></th>
         <th><%= l(:field_created_on) %></th>
         <th><%= l(:field_updated_on) %></th>
       </tr>
-      <% setting.ical_events.sort_by{|rel| rel.start_date}.each do |rel| %>
-        <% issue = rel.issue %>
+      <% setting.ical_events.sort_by{|event| event.start_date}.each do |event| %>
+        <% issue = event.issue %>
         <tr>
           <td><%= link_to_issue(issue) %></td>
-          <%= event_date(rel, issue) %>
-          <td style="text-align: right;"><%= distance_of_time_in_words(Time.now, issue.created_on) %>前</td>
-          <td style="text-align: right;"><%= distance_of_time_in_words(Time.now, issue.updated_on) %>前</td>
+          <%= event_date(event, issue) %>
+          <td><%= event.location %></td>
+          <td style="text-align: right;"><%= distance_of_time_in_words(Time.now, event.created_at) %>前</td>
+          <td style="text-align: right;"><%= distance_of_time_in_words(Time.now, event.updated_at) %>前</td>
         </tr>
       <% end %>
       </tbody>

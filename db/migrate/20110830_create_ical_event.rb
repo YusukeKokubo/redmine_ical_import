@@ -6,6 +6,7 @@ class CreateIcalEvent < ActiveRecord::Migration
       t.column :ical_setting_id, :integer, :null => false
       t.column :start_date, :datetime, :null => true
       t.column :due_date, :datetime, :null => true
+      t.column :location, :string, :null => true
       t.timestamps
     end
   end

@@ -58,16 +58,7 @@ class IcalImporter
           issue.init_journal(setting.user) unless issue.new_record?
           issue.tracker = setting.tracker
           issue.subject = event.summary
-          issue.description = <<EOS
-* start:
-** #{start_date.strftime("%Y-%m-%d %H:%M:%S")}
-* end:
-** #{end_date.strftime("%Y-%m-%d %H:%M:%S")}
-* location:
-** #{event.location}
-
-#{event.description}
-EOS
+          issue.description = event.description
           issue.project = setting.project
           issue.author = setting.user
           issue.assigned_to = setting.user
@@ -82,6 +73,7 @@ EOS
           ical_event.ical_setting = setting
           ical_event.start_date = start_date
           ical_event.due_date = end_date
+          ical_event.location = event.location
           ical_event.save!
           logger.info "saved event : #{ical_event.inspect}"
 
