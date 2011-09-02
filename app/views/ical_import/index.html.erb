@@ -16,7 +16,7 @@
       </tr>
       <% setting.ical_events.sort_by{|event| event.start_date}.each do |event| %>
         <% issue = event.issue %>
-        <tr>
+        <tr class="<%= cycle 'odd', 'even' %>">
           <td><%= link_to_issue(issue) %></td>
           <%= event_date(event, issue) %>
           <td><%= event.location %></td>
