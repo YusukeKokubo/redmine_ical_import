@@ -82,6 +82,8 @@ EOS
             rel.uid = event.uid
             rel.issue = issue
             rel.ical_setting = setting
+            rel.start_date = start_date
+            rel.due_date = end_date
             rel.save!
           end
         end

@@ -4,6 +4,8 @@ class CreateIcalUidRelation < ActiveRecord::Migration
       t.column :uid, :string, :null => false
       t.column :issue_id, :integer, :null => false
       t.column :ical_setting_id, :integer, :null => false
+      t.column :start_date, :datetime, :null => true
+      t.column :due_date, :datetime, :null => true
       t.timestamps
     end
   end

@@ -1,7 +1,7 @@
 <% @ical_settings.each do |setting| %>
   <div class="autoscroll">
   <p class="buttons hide-when-print">
-    <%= setting.name %> : <%= link_to_user(setting.user) %>
+    <%= link_to_user(setting.user) %> ( <%= setting.name %> )
     <%= link_to l(:button_update), {:controller => "ical_import", :action => "update", :id => setting}, :class => 'icon icon-edit' %>
   </p>
   <table class="list issues">
@@ -17,7 +17,7 @@
         <% issue = rel.issue %>
         <tr>
           <td><%= link_to_issue(issue) %></td>
-          <%= event_date(issue) %>
+          <%= event_date(rel, issue) %>
           <td style="text-align: right;"><%= distance_of_time_in_words(Time.now, issue.created_on) %>前</td>
           <td style="text-align: right;"><%= distance_of_time_in_words(Time.now, issue.updated_on) %>前</td>
         </tr>
