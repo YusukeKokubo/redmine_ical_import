@@ -9,10 +9,9 @@ require 'net/https'
 require 'uri'
 require 'logger'
 
-include Icalendar
-
 class IcalImporter
-
+  include Icalendar
+  
   class << self
     def import(cond = :all)
       logger = Logger.new(File.join(File.dirname(__FILE__), "../../../../log/ics_import.log"))
