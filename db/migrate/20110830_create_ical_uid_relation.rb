@@ -1,6 +1,6 @@
-class CreateUidRelation < ActiveRecord::Migration
+class CreateIcalUidRelation < ActiveRecord::Migration
   def self.up
-    create_table :uid_relations do |t|
+    create_table :ical_uid_relations do |t|
       t.column :uid, :string, :null => false
       t.column :issue_id, :integer, :null => false
       t.column :ical_setting_id, :integer, :null => false
@@ -9,7 +9,7 @@ class CreateUidRelation < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :uid_relations
+    drop_table :ical_uid_relations
   end
 end
 

@@ -43,7 +43,7 @@ class IcalImporter
           last_modified = event.last_modified
           last_modified = last_modified.new_offset(Rational(9, 24)) if last_modified and last_modified.ical_params["TZID"].nil?
 
-          rel = UidRelation.find_by_uid event.uid
+          rel = IcalUidRelation.find_by_uid event.uid
           issue = rel.issue if rel
           issue = Issue.new unless issue
 
@@ -79,7 +79,7 @@ EOS
           logger.info "saved issue : #{issue.inspect}"
 
           unless rel
-            rel = UidRelation.new
+            rel = IcalUidRelation.new
             rel.uid = event.uid
             rel.issue = issue
             rel.ical_setting = setting

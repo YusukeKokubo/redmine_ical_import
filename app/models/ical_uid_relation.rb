@@ -1,4 +1,4 @@
-class UidRelation < ActiveRecord::Base
+class IcalUidRelation < ActiveRecord::Base
     unloadable
     belongs_to :issue
     belongs_to :ical_setting
