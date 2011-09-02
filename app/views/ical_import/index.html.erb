@@ -13,7 +13,7 @@
         <th><%= l(:field_created_on) %></th>
         <th><%= l(:field_updated_on) %></th>
       </tr>
-      <% setting.ical_uid_relations.sort_by{|rel| rel.issue.start_date}.each do |rel| %>
+      <% setting.ical_events.sort_by{|rel| rel.start_date}.each do |rel| %>
         <% issue = rel.issue %>
         <tr>
           <td><%= link_to_issue(issue) %></td>

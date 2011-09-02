@@ -42,12 +42,12 @@ class IcalImporter
           last_modified = event.last_modified
           last_modified = last_modified.new_offset(Rational(9, 24)) if last_modified and last_modified.ical_params["TZID"].nil?
 
-          rel = IcalUidRelation.find_by_uid event.uid
-          issue = rel.issue if rel
+          ical_event = IcalEvent.find_by_uid event.uid
+          issue = ical_event.issue if ical_event
           issue = Issue.new unless issue
 
           next if last_modified.nil? and not issue.new_record?
-          next if rel and last_modified and rel.updated_at >= last_modified
+          next if ical_event and last_modified and ical_event.updated_at >= last_modified
           if start_date < DateTime.now
             next unless last_modified
             next if last_modified < DateTime.now
@@ -74,18 +74,17 @@ EOS
           issue.start_date = start_date
           issue.due_date = end_date
           issue.save!
-
           logger.info "saved issue : #{issue.inspect}"
 
-          unless rel
-            rel = IcalUidRelation.new
-            rel.uid = event.uid
-            rel.issue = issue
-            rel.ical_setting = setting
-            rel.start_date = start_date
-            rel.due_date = end_date
-            rel.save!
-          end
+          ical_event = IcalEvent.new unless ical_event
+          ical_event.uid = event.uid
+          ical_event.issue = issue
+          ical_event.ical_setting = setting
+          ical_event.start_date = start_date
+          ical_event.due_date = end_date
+          ical_event.save!
+          logger.info "saved event : #{ical_event.inspect}"
+
         end
       end
       logger.info "ics import finished."
