@@ -1,5 +1,8 @@
+# Japanese strings go here for Rails i18n
 ja:
   ical: "ical"
   ical_import: "ical import"
   label_ical: "ical"
-  field_location: 場所
+  ical_field_location: "場所"
+  ical_field_start_datetime: "イベント開始日時"
+  ical_field_due_datetime:   "イベント終了日時"

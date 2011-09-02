@@ -3,4 +3,7 @@ en:
   ical: "ical"
   ical_import: "ical import"
   label_ical: "ical"
-  field_location: location
+  ical_field_location: location
+  ical_field_start_datetime: "event start datetime"
+  ical_field_due_datetime:   "event due datetime"
+

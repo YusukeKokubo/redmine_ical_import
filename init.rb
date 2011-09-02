@@ -2,6 +2,7 @@ require 'redmine'
 require 'dispatcher'
 
 require 'ical_import_projects_helper_patch'
+require 'ical_import_issue_hooks'
 require_dependency 'ical_import'
 
 Redmine::Plugin.register :ical_import do
