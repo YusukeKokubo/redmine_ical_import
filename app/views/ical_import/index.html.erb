@@ -15,7 +15,7 @@
         <th><%= l(:field_updated_on) %></th>
       </tr>
       <% setting.ical_events.sort_by{|event| event.start_date}.each do |event| %>
-        <% issue = event.issue %>
+        <% issue = event.issue || Issue.new %>
         <tr class="<%= cycle 'odd', 'even' %>">
           <td><%= link_to_issue(issue) %></td>
           <%= event_date(event, issue) %>
