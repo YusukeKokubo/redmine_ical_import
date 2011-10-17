@@ -7,3 +7,7 @@ icalをインポートしてRedmineのチケットとして作成します。
 rake db:migrate_plugins RAILS_ENV=production
 (テーブルを追加するだけなので危険は少ないです)
 
+== Caution
+
+GoogleカレンダーのようにTZIDがつかない時間は強制的に日本時間に変換されます。
+
