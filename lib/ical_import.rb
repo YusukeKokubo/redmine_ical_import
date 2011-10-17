@@ -14,7 +14,7 @@ class IcalImporter
   
   class << self
     def import(cond = :all)
-      logger = Logger.new(File.join(File.dirname(__FILE__), "../../../../log/ics_import.log"))
+      logger = Logger.new(File.join(File.dirname(__FILE__), "../../../../log/ical_import.log"))
       logger.level = Logger::DEBUG
 
       cals = nil

@@ -4,29 +4,43 @@ icalをインポートしてRedmineのチケットとして作成します。
 
 == install
 
-rake db:migrate_plugins RAILS_ENV=production
+ gem install icalendar
+ 
+ rake db:migrate_plugins RAILS_ENV=production
+
 (テーブルを追加するだけなので危険は少ないです)
 
 == Caution
 
-GoogleカレンダーのようにTZIDがつかない時間は強制的に日本時間に変換されます。
+* GoogleカレンダーのようにTZIDがつかない時間は強制的に日本時間に変換されます。
+* チケットを作成or更新するのは以下のいずれかの条件にあったものです
+    イベント開始日(DTSTART)が現在日より未来日
+    イベント更新日時(LAST-MODIFIED)が現在日時より未来日時
+* %RAILS_HOME%/log/ical_import.logにログが出力されます
 
 == how to use
 
-* インストールする
-* プロジェクトの設定画面でical importモジュールを有効にする
-** (設定画面のタブにicalが追加される)
-* ical設定画面でインポートしたいicalの公開URLを入力する
-** トラッカーも選択できるのでする
-* プロジェクトメニューのical importを開く
-* 設定したicalの「更新」をクリックする
-** イベントがチケットとなって作成される
+1. インストールする
+1. 管理画面の権限設定からical_importに権限をつける
+1. プロジェクトの設定画面でical importモジュールを有効にする
+    (設定画面のタブにicalが追加される)
+1. ical設定画面でインポートしたいicalの公開URLを入力する
+    ユーザーとトラッカーも選択できるのでする
+1. プロジェクトメニューのical importを開く
+1. 設定したicalの「更新」をクリックする
+    イベントがチケットとなって作成される
 
 == イベントの更新時
 
 * ical側の更新はチケットに反映されます
-** プラグイン側はイベントuidとチケットNoを内部的に紐付けています
+    プラグイン側はイベントuidとチケットNoを内部的に紐付けています
 * チケットの変更はicalに反映されません
-** あくまでもインポートしかしません
+    あくまでもインポートしかしません
 
+== 自動でicalのイベントをチケットに反映
 
+icalのイベント更新は基本的には手動で更新されることを想定していますがコマンドから更新することも可能です。
+
+ %RAILS_HOME%/vendor/plugins/redmine_ical_import/lib/ical_import.rb
+
+タスクスケジューラやCronを使って上記のRubyファイルをコマンドラインから実行すればプラグインに登録されているすべてのicalを更新します。
